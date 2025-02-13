@@ -14,7 +14,7 @@ export const userControllers = {
                 email,
                 password: hash
             })
-            const token = jwt.sign({id: user._id}, 'my-secret', {expiresIn: '1d'})
+            const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: '1d'})
             res.status(201).json({
                 token
             })
@@ -44,7 +44,7 @@ export const userControllers = {
                 })
             }
 
-            const token = jwt.sign({id: user._id}, 'my-secret', {expiresIn: '1d'})
+            const token = jwt.sign({id: user._id}, process.env.SECRET_KEY, {expiresIn: '1d'})
 
             res.status(200).json({
                 token
