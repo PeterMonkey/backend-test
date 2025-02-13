@@ -5,6 +5,6 @@ import { verifyToken } from "../middlewares/verifyToken.js"
 const route = Router()
 
 route.post('/register', userControllers.createUser)
-route.post('/login', verifyToken, userControllers.login)
+route.post('/login', userControllers.login)
 
 export default route

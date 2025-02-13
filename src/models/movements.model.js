@@ -25,8 +25,8 @@ const movementsSchhema = new Schema({
             lastNumber: { type: Number, default: 0 },
         },
         budgetMargin: {
-            value: { type: String, default: "$ 0" },
-            lastValue: { type: String, default: "$ 0" },
+            value: { type: String, default: "0 %" },
+            lastValue: { type: String, default: "0 %" },
             number: { type: Number, default: 0 },
             lastNumber: { type: Number, default: 0 },
         },
