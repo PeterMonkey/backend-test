@@ -1,4 +1,5 @@
 import { MovementsModel } from "../models/movements.model.js";
+import { LineModel } from "../models/line.model.js";
 
 export const movementsController = {
     
@@ -73,10 +74,16 @@ export const movementsController = {
             if (!Array.isArray(ids) || ids.length === 0) {
                 return res.status(400).json({ error: 'Se requiere un array de IDs válido' });
               }
+            const movements = await MovementsModel.find({ _id: {$in: ids} })
 
-            await MovementsModel.deleteMany({ _id: {$in: ids} })
+            movements.forEach(async (move) => {
+                await LineModel.deleteMany({ movementId: move._id })
+            });
+
+            const deleteMove = await MovementsModel.deleteMany({ _id: {$in: ids} })
             return res.status(200).json({
-                message: 'Elementos eliminados'
+                message: 'Elementos eliminados',
+                deleteMove
             })
         } catch (error) {
             throw new Error(error)

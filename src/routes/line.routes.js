@@ -6,6 +6,7 @@ const route = Router()
 
 route.post('/create', verifyToken, lineController.create)
 route.get('/:id', verifyToken, lineController.getLines)
-route.get('/delete', verifyToken, lineController.deleteLines)
+route.delete('/delete', verifyToken, lineController.deleteLines)
+route.patch('/update/:id', verifyToken, lineController.updateLine)
 
 export default route;

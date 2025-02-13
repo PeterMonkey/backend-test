@@ -6,6 +6,6 @@ const route = Router();
 
 route.post('/create', verifyToken, movementsController.create)
 route.get('/:id', verifyToken, movementsController.getMovements)
-route.get('/delete', verifyToken, movementsController.deleteMovement)
+route.delete('/delete', verifyToken, movementsController.deleteMovement)
 
 export default route;
