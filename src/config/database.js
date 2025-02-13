@@ -1,7 +1,7 @@
 import { connect } from "mongoose";
 
-export default function connection() {
-    connect('mongodb://localhost:27017/dbTest', {
+export default function connectionDb() {
+    connect('mongodb://localhost:27018/dbTest', {
         useNewUrlParser: true,
         useUnifiedTopology: true,      
     })
