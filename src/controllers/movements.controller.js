@@ -1,19 +1,20 @@
-import { ProjectModel } from "../models/project.model.js";
+import { MovementsModel } from "../models/movements.model.js";
 
-export const projectController = {
+export const movementsController = {
     
     create: async (req, res) => {
-        const {name, sumPrice, sumBudget} = req.body;
+        const {name, sumPrice, sumBudget, projectId} = req.body;
         const id = req.user.id;
         const budgetUtility = sumPrice - sumBudget
         const budgetMargin = (budgetUtility / sumPrice) * 100
 
         try {
-            const project = await ProjectModel.create({
+            const project = await MovementsModel.create({
                 name,
                 creator: {
                     user: id
                 },
+                projectId,
                 numbers: {
                     sumPrice: {
                         value: `$ ${sumPrice}`,
@@ -42,40 +43,38 @@ export const projectController = {
         }
     },
 
-    getProjects: async (req, res) => {
-        const id = req.user.id;
+    getMovements: async (req, res) => {
+        const projectId = req.params.id
 
         try {
-            const projects = await ProjectModel.find({
-                creator: {
-                    user: id
-                }
+            const movements = await MovementsModel.find({
+                projectId
             })
 
-            if (projects.length === 0) {
+            if (movements.length === 0) {
                 return res.status(400).json({
                     ok: false,
-                    message: 'No has creado ningun projecto aun'
+                    message: 'No se ha creado ningun movimiento en este proyecto'
                 })
             }
 
             return res.status(200).json({
                 ok: true,
-                projects
+                movements
             })
         } catch (error) {
             throw new Error(error)
         }
     },
 
-    deleteProjects: async (req, res) => {
+    deleteMovement: async (req, res) => {
         try {
             const {ids} = req.body
             if (!Array.isArray(ids) || ids.length === 0) {
                 return res.status(400).json({ error: 'Se requiere un array de IDs válido' });
               }
 
-            await ProjectModel.deleteMany({ _id: {$in: ids} })
+            await MovementsModel.deleteMany({ _id: {$in: ids} })
             return res.status(200).json({
                 message: 'Elementos eliminados'
             })

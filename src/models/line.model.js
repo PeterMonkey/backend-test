@@ -5,6 +5,7 @@ const lineSchhema = new Schema({
     creator: {
         user: { type: String, ref: "User", default: null },
     },
+    movementId: { type: String, ref: "Movements" },
     numbers: {
         sumPrice: {
             value: { type: String, default: "$ 0" },
