@@ -7,5 +7,6 @@ const route = Router()
 route.post('/create', verifyToken, projectController.create)
 route.get('/', verifyToken, projectController.getProjects)
 route.delete('/delete', verifyToken, projectController.deleteProjects)
+route.get('/search', verifyToken, projectController.searchProyect)
 
 export default route;

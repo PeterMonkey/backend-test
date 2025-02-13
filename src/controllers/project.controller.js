@@ -82,5 +82,29 @@ export const projectController = {
         } catch (error) {
             throw new Error(error)
         }
+    },
+
+    searchProyect: async (req, res) => {
+        try {
+            const {q} = req.query
+
+            if (!q) {
+                return res.status(400).json({ message: 'No se encuentran coincidencias' });
+              }
+
+            const query = {
+                $or: [
+                    { name: { $regex: q, $options: 'i' } }
+                ]
+            }
+
+            const projects = await ProjectModel.find(query)
+
+            return res.status(200).json({
+                projects
+            })
+        } catch (error) {
+            throw new Error(error)
+        }
     }
 }
